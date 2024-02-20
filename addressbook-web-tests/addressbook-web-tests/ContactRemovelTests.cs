@@ -14,7 +14,7 @@ namespace addressbook_web_tests
     {
         
         [Test]
-        public void TheUntitledTestCaseTest()
+        public void ContactRemovelTest()
         {
             GoToHomePage();
             Login(new AccountData("admin", "secret"));
