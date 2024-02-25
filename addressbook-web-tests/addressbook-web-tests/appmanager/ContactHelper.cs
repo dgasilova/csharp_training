@@ -26,6 +26,29 @@ namespace addressbook_web_tests
             return this;
         }
 
+        public ContactHelper Modyfy(int v, ContactData newDate)
+        {
+            manager.Novigation.GoToHomePage();
+            SelectContact();
+            InitContactModification();
+            FillContactForm(newDate);
+            SubmitContactModification();
+            manager.Novigation.GoToHomePage();
+            return this;
+        }
+
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactModification()
+        {
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img")).Click();
+            return this;
+        }
+
         internal void Remove(int v)
         {
             manager.Novigation.GoToHomePage();

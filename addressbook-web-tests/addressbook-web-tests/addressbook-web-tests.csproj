@@ -76,6 +76,8 @@
     <Compile Include="appmanager\LoginHelper.cs" />
     <Compile Include="appmanager\NovigationHelper.cs" />
     <Compile Include="Square.cs" />
+    <Compile Include="tests\ContactModificationTests.cs" />
+    <Compile Include="tests\GroupModificationTests.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="Shaps.cs">
       <CustomToolNamespace>Shaps</CustomToolNamespace>
@@ -83,7 +85,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tests\GroupCreationTests.cs" />
     <Compile Include="tests\ContactCreationTests.cs" />
-    <Compile Include="tests\GroupRemovelTest.cs" />
+    <Compile Include="tests\GroupRemovelTests.cs" />
     <Compile Include="tests\ContactRemovelTests.cs" />
   </ItemGroup>
   <ItemGroup>
