@@ -10,19 +10,15 @@ using OpenQA.Selenium.Support.UI;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class ContactRemovelTests : TestBase
+    public class GroupRemovelTests : TestBase
     {
-        
+       
+
         [Test]
-        public void ContactRemovelTest()
+        public void GroupRemovelTest()
         {
-            GoToHomePage();
-            Login(new AccountData("admin", "secret"));
-            PressHome();
-            SelectContact();
-            RemoveContact();
-            PressHome();
-            Logout();
+            app.Groups.Remove(1);
+           
         }
 
     }
