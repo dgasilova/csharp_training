@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class ContactModificationTests : TestBase
+    public class ContactModificationTests : AuthTestBase
     {
         [Test]
         public void ContactModificationTest()
         {
 
             ContactData newDate = new ContactData("TestContact");
-            newDate.Lastname = "TestContact1";
+            newDate.Lastname = null;
 
             app.Contacts.Modyfy(1, newDate);
         }

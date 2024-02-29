@@ -76,8 +76,10 @@
     <Compile Include="appmanager\LoginHelper.cs" />
     <Compile Include="appmanager\NovigationHelper.cs" />
     <Compile Include="Square.cs" />
+    <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\ContactModificationTests.cs" />
     <Compile Include="tests\GroupModificationTests.cs" />
+    <Compile Include="tests\LoginTests.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="Shaps.cs">
       <CustomToolNamespace>Shaps</CustomToolNamespace>

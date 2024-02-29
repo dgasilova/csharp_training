@@ -11,15 +11,15 @@ using OpenQA.Selenium.Support.UI;
 namespace addressbook_web_tests
 {
     [TestFixture]
-    public class GroupModificationTests : TestBase
+    public class GroupModificationTests : AuthTestBase
     { 
         [Test]
         public void GroupModificationTest()
         {
 
             GroupData newDate = new GroupData("zzz");
-            newDate.Header = "ttt";
-            newDate.Footer = "qqq";
+            newDate.Header = null;
+            newDate.Footer = null;
 
             app.Groups.Modyfy(1, newDate);
         }
