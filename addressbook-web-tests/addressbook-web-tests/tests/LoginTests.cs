@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -22,7 +23,7 @@ namespace addressbook_web_tests
             AccountData account = new AccountData("admin", "secret");
             app.Auth.Login(account);
             //verification
-            Assert.IsTrue(app.Auth.IsLoggedIn(account));
+            ClassicAssert.IsTrue(app.Auth.IsLoggedIn(account));
         }
 
         [Test]
@@ -34,7 +35,7 @@ namespace addressbook_web_tests
             AccountData account = new AccountData("admin", "123456");
             app.Auth.Login(account);
             //verification
-            Assert.IsFalse(app.Auth.IsLoggedIn(account));
+            ClassicAssert.IsFalse(app.Auth.IsLoggedIn(account));
         }
     }
 }
