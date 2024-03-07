@@ -16,6 +16,10 @@ namespace addressbook_web_tests
         [Test]
         public void GroupModificationTest()
         {
+            if (!app.Groups.IsPresent(1))
+            {
+                app.Groups.Create(new GroupData("Some name"));
+            }
 
             GroupData newDate = new GroupData("zzz");
             newDate.Header = null;

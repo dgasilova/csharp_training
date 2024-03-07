@@ -29,7 +29,7 @@ namespace addressbook_web_tests
         public ContactHelper Modyfy(int v, ContactData newDate)
         {
             manager.Novigation.GoToHomePage();
-            SelectContact();
+            SelectContact(v);
             InitContactModification();
             FillContactForm(newDate);
             SubmitContactModification();
@@ -49,12 +49,27 @@ namespace addressbook_web_tests
             return this;
         }
 
-        internal void Remove(int v)
+        public void Remove(int v)
         {
             manager.Novigation.GoToHomePage();
-            SelectContact();
-            RemoveContact();
+
+            if (IsPresent())
+            {
+                SelectContact(v);
+                RemoveContact();
+            }
+                        
             manager.Novigation.PressHome();
+            return;
+
+        }
+
+        public bool IsPresent()
+        {
+            // var totalElements = int.Parse(driver.FindElement(By.Id("search_count")).Text);
+            var totalElements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]")).Count;
+
+            return totalElements > 0;
         }
 
         public ContactHelper GoToAddNewPage()
@@ -76,7 +91,7 @@ namespace addressbook_web_tests
             return this;
         }
 
-        public ContactHelper SelectContact()
+        public ContactHelper SelectContact(int v)
         {
             driver.FindElement(By.Name("selected[]")).Click();
             return this;

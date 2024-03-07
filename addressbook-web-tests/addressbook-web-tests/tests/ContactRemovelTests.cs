@@ -15,8 +15,12 @@ namespace addressbook_web_tests
         
         [Test]
         public void ContactRemovelTest()
-        {           
-           
+        {
+            if (!app.Contacts.IsPresent())
+            {
+                app.Contacts.Create(new ContactData("Some name","Some lastname"));
+            }
+
             app.Contacts.Remove(1);
         }
 

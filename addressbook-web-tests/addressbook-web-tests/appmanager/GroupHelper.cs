@@ -8,6 +8,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Reflection;
 
 namespace addressbook_web_tests
 {
@@ -43,12 +44,21 @@ namespace addressbook_web_tests
         public GroupHelper Remove(int p)
         {
             manager.Novigation.GoToGroupsPage();
-            SelectGroup(p);
-            RemoveGroup();
+
+            if (IsPresent(p))
+            {
+                SelectGroup(p);
+                RemoveGroup();
+            }
+
             manager.Novigation.GoToGroupsPage();
             return this;
         }
 
+        public bool IsPresent(int index) 
+        {
+            return IsElementPresent(By.XPath("//div[@id='content']/form/span[" + index + "]/input"));
+        }
 
         public GroupHelper InitNewGroupCreation()
         {
