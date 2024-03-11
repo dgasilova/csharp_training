@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using OpenQA.Selenium;
@@ -13,14 +14,21 @@ namespace addressbook_web_tests
         [Test]
         public void GroupRemovelTest()
         {
-            if (!app.Groups.IsPresent(1))
+           if (!app.Groups.IsPresent(0))
             {
                 app.Groups.Create(new GroupData("Some name"));
             }
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            
+            app.Groups.Remove(0);
 
-            app.Groups.Remove(1);
+            //ClassicAssert.IsFalse(app.Groups.IsPresent(0));
 
-            ClassicAssert.IsTrue(app.Groups.IsPresent(1));
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+
+            oldGroups.RemoveAt(0);
+
+            ClassicAssert.AreEqual(oldGroups, newGroups);
         }
 
     }

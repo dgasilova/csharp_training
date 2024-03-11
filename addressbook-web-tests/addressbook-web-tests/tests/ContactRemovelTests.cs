@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -21,7 +24,15 @@ namespace addressbook_web_tests
                 app.Contacts.Create(new ContactData("Some name","Some lastname"));
             }
 
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
+
             app.Contacts.Remove(1);
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+
+            oldContacts.RemoveAt(0);
+
+            ClassicAssert.AreEqual(oldContacts, newContacts);
         }
 
     }

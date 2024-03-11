@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -70,6 +71,21 @@ namespace addressbook_web_tests
             var totalElements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]")).Count;
 
             return totalElements > 0;
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Novigation.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]"));
+
+
+            foreach (IWebElement element in elements)
+            {
+                ContactData contact = new ContactData(element.Text);
+                contacts.Add(contact);
+            }
+            return contacts;
         }
 
         public ContactHelper GoToAddNewPage()

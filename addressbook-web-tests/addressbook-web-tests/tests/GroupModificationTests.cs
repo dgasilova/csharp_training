@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -25,7 +26,15 @@ namespace addressbook_web_tests
             newDate.Header = null;
             newDate.Footer = null;
 
-            app.Groups.Modyfy(1, newDate);
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.Modyfy(0, newDate);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups[0].Name = newDate.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            ClassicAssert.AreEqual(oldGroups, newGroups);
         }
 
     
