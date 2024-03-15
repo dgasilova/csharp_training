@@ -13,25 +13,21 @@ namespace addressbook_web_tests
 
         public ContactData(string firstname)
         {
-            this.firstname = firstname;
+            Name = firstname;
         }
         public ContactData(string firstname, string lastname)
-        { 
-            this.firstname = firstname; 
-            this.lastname = lastname; 
+        {
+            Name = firstname; 
+            Lastname = lastname; 
         }
 
-    public string Name
-        {
-            get { return firstname; }
-            set { firstname = value; }
-        }
+        public string Name { get; set; }
+        
        
-        public string Lastname
-        { 
-            get { return lastname; } 
-            set {  lastname = value; } 
-        }
+        public string Lastname { get; set; }
+
+        public string Id { get; set; }
+
 
         public bool Equals(ContactData other)
         {

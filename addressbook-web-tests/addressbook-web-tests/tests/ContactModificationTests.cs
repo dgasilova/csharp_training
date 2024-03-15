@@ -27,6 +27,8 @@ namespace addressbook_web_tests
 
             app.Contacts.Modyfy(1, newDate);
 
+            ClassicAssert.AreEqual(oldContacts.Count, app.Contacts.GetContactsCount());
+
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
             oldContacts[0].Lastname = newDate.Lastname;
@@ -34,6 +36,15 @@ namespace addressbook_web_tests
             newContacts.Sort();
             
             ClassicAssert.AreEqual(oldContacts, newContacts);
+
+            foreach (ContactData contact in newContacts)
+            {
+                if (contact.Id == oldContacts.Id)
+                {
+                    ClassicAssert.AreEqual(newDate.Lastname, contact.Lastname);
+                }
+
+            }
         }
     }
 }

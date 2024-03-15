@@ -21,13 +21,15 @@ namespace addressbook_web_tests
         [Test]
         public void GroupCreationTest()
         {
-            GroupData group = new GroupData("aaa");
+            GroupData group = new GroupData("aaa1");
             group.Header = "sss";
             group.Footer = "ddd";
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Create(group);
+
+            ClassicAssert.AreEqual(oldGroups.Count +1, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.Add(group);
@@ -47,6 +49,9 @@ namespace addressbook_web_tests
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Create(group);
+
+            ClassicAssert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.Add(group);
             oldGroups.Sort();
@@ -64,11 +69,14 @@ namespace addressbook_web_tests
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Create(group);
+
+            ClassicAssert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
-            ClassicAssert.AreEqual(oldGroups, newGroups);
+            ClassicAssert.AreNotEqual(oldGroups, newGroups);
         }
 
     }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -41,6 +43,7 @@ namespace addressbook_web_tests
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -73,20 +76,7 @@ namespace addressbook_web_tests
             return totalElements > 0;
         }
 
-        public List<ContactData> GetContactList()
-        {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Novigation.GoToHomePage();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]"));
-
-
-            foreach (IWebElement element in elements)
-            {
-                ContactData contact = new ContactData(element.Text);
-                contacts.Add(contact);
-            }
-            return contacts;
-        }
+        
 
         public ContactHelper GoToAddNewPage()
         {
@@ -104,6 +94,7 @@ namespace addressbook_web_tests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/input[20]")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -116,9 +107,45 @@ namespace addressbook_web_tests
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCache = null;
             return this;
         }
 
-        
+        private List<ContactData> contactCache = null;
+
+        public List<ContactData> GetContactList()
+        {
+            if (contactCache == null)
+            {
+                contactCache = new List<ContactData>();
+                manager.Novigation.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]"));
+
+
+
+                var rows = driver.FindElements(By.CssSelector("tr[name=\"entry\"]"));
+                foreach ( IWebElement element in rows)
+                {
+                    IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                    /*var cells = row.FindElements(By.TagName("td"));
+                    ContactData contact = new ContactData(cells[0].Text, cells[0].Text);
+                    contactCache.Add(contact);*/
+                    contactCache.Add(new ContactData(element.Text)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
+
+                }
+            }
+
+            return new List<ContactData>(contactCache);
+        }
+
+
+       
+        public int GetContactsCount()
+        {
+            return GetContactList().Count();
+        }
     }
 }
