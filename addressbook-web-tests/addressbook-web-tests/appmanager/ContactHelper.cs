@@ -136,6 +136,7 @@ namespace addressbook_web_tests
                     });
 
                 }
+
             }
 
             return new List<ContactData>(contactCache);
