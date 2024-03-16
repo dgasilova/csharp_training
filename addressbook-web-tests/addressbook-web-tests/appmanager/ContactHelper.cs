@@ -121,18 +121,18 @@ namespace addressbook_web_tests
                 manager.Novigation.GoToHomePage();
                 ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]"));
 
+                 foreach ( IWebElement element in elements)
+                 {
+                    var cells = element.FindElements(By.TagName("td"));
+                    var id = cells[0].FindElement(By.TagName("input")).GetAttribute("value");
+                    var lastName = cells[1].Text;
+                    var name = cells[2].Text;
 
-
-                var rows = driver.FindElements(By.CssSelector("tr[name=\"entry\"]"));
-                foreach ( IWebElement element in rows)
-                {
-                    IList<IWebElement> cells = element.FindElements(By.TagName("td"));
-                    /*var cells = row.FindElements(By.TagName("td"));
-                    ContactData contact = new ContactData(cells[0].Text, cells[0].Text);
-                    contactCache.Add(contact);*/
                     contactCache.Add(new ContactData(element.Text)
                     {
-                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                        Id = id,
+                        Lastname = lastName,
+                        Name = name
                     });
 
                 }

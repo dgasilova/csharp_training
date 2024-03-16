@@ -32,18 +32,22 @@ namespace addressbook_web_tests
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
             oldContacts[0].Lastname = newDate.Lastname;
+            oldContacts[0].Name = newDate.Name;
+            
             oldContacts.Sort();
             newContacts.Sort();
             
             ClassicAssert.AreEqual(oldContacts, newContacts);
-
-            foreach (ContactData contact in newContacts)
+            
+            
+            foreach (ContactData group in newContacts)
             {
-                if (contact.Id == oldContacts.Id)
+                for (int i = 0; i < newContacts.Count; i++)
                 {
-                    ClassicAssert.AreEqual(newDate.Lastname, contact.Lastname);
+                    ClassicAssert.AreEqual(oldContacts[i].Id, newContacts[i].Id);
+                    ClassicAssert.AreEqual(oldContacts[i].Name, newContacts[i].Name);
+                    ClassicAssert.AreEqual(oldContacts[i].Lastname, newContacts[i].Lastname);
                 }
-
             }
         }
     }
